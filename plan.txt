@@ -1,0 +1,57 @@
+1. Get Search Value
+2. send search value -> search player api
+3. show all player into the players-container
+4. add player implement => player insert on ol (AddPlayerName)
+
+
+<script>
+
+
+    const showPlayer = (players) => {
+        playerContainer.innerHTML = players
+            .map((player, index) => {
+                return `
+                    <div class="col-12 col-md-6 col-lg-4 player">
+                        <div class="card h-100">
+                            <img src="${player?.strThumb}" class="card-img-top" alt="player image" />
+                            <div class="card-body">
+                                <h5 class="card-title">${player?.strPlayer}</h5>
+                                <p>Nationality: ${player?.strNationality}</p>
+                                <p>Team: ${player?.strTeam}</p>
+                                <p>Sports: ${player?.strSport}</p>
+                                <p>Salary: ${player?.strSigning}</p>
+                                <p>Gender: ${player?.strGender}</p>
+                                <p class="card-text">${player.strDescriptionEN != null ? player.strDescriptionEN.slice(0, 61) : "No description"}...</p>
+                                <div class="social-media d-flex gap-2">
+                                    <a target="_blank" href="${player?.strFacebook}"><ion-icon class="fs-4" name="logo-facebook"></ion-icon></a>
+                                    <a target="_blank" href="${player?.strTwitter}"><ion-icon class="fs-4" name="logo-twitter"></ion-icon></a>
+                                    <a target="_blank" href="${player?.strInstagram}"><ion-icon class="fs-4" name="logo-instagram"></ion-icon></a>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <button id="btn-${index}" onclick="handleAddToCart('${player?.strPlayer}', 'btn-${index}')" type="button" class="btn btn-success">Add</button>
+                                <button type="button" id="handleModalBtn-${player.idPlayer}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-${player.idPlayer}" onclick="showPlayerDetails(${player.idPlayer})">Details</button>
+                                <div class="modal fade" id="exampleModal-${player.idPlayer}" tabindex="-1" aria-labelledby="exampleModalLabel-${player.idPlayer}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel-${player.idPlayer}">${player?.strPlayer}</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body" id="modal-body-${player.idPlayer}">Loading...</div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            })
+            .join("");
+    };
+
+   
+</script>
